@@ -1,8 +1,8 @@
 package com.costalopes.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.costalopes.model.Activity;
 import com.costalopes.model.Exercise;
+import com.costalopes.service.ExerciseService;
 
 @Controller
 public class MinutesController {
-
+	
+	@Autowired
+	private ExerciseService service;
+	
 	@RequestMapping(value="/addMinutes")
 	public String addMinutes(@ModelAttribute("exercise") Exercise exercise) {
 		
 		System.out.println("exercise: " + exercise.getMinutes());
+		System.out.println("exercise activity: " + exercise.getActivity());
 		
 		// forward faz um bypass na ViewResolver e manda o request para outro mapeamento (metodo)
 		// return "forward:addMoreMinutes.html";
@@ -38,21 +43,8 @@ public class MinutesController {
 
 	@RequestMapping(value = "/activities", method = RequestMethod.GET)
 	public @ResponseBody List<Activity> findAllActivities() {
-		List<Activity> activities = new ArrayList<>();
 		
-		Activity run = new Activity();
-		run.setDesc("Run");
-		activities.add(run);
-		
-		Activity bike = new Activity();
-		bike.setDesc("Bike");
-		activities.add(bike);
-		
-		Activity swim = new Activity();
-		swim.setDesc("Swim");
-		activities.add(swim);
-		
-		return activities;
+		return service.findAllActivities();
 	}
 	
 }

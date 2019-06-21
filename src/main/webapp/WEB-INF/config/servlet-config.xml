@@ -10,7 +10,7 @@
         
     <mvc:annotation-driven/>    
 	
-	<context:component-scan base-package="com.costalopes.controller"/>
+	<context:component-scan base-package="com.costalopes"/>
 	
 	<!-- por tras da cena ele usa um controller pra ir buscar esses arquivos estaticos -->
 	<mvc:resources location="pdfs" mapping="/pdfs/**"/>
